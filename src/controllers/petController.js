@@ -10,6 +10,7 @@ module.exports = (() => {
 
     function getAllPets(context) {
         notificator.showLoading();
+        storage.saveData('category', context.params.category);
 
         let petsQuery;
         let category = this.params.category.toLowerCase();
@@ -30,7 +31,11 @@ module.exports = (() => {
 
         petsQuery
             .then(function (pets) {
-                context.pets = pets;
+                const petsByLikesDesc = pets.sort((a, b) => {
+                    return b.likes.length - a.likes.length;
+                });
+
+                context.pets = petsByLikesDesc;
                 hbsHelpers.isAuthor();
                 hbsHelpers.isUserInLikes();
                 hbsHelpers.likesCounter();
@@ -74,6 +79,7 @@ module.exports = (() => {
 
         const petId = context.params.id;
         const previousPage = context.params.from || null;
+        const currentCategory = storage.getData('category');
 
         petModel.getOne(petId)
             .then(function (petData) {
@@ -105,7 +111,7 @@ module.exports = (() => {
                             return;
                         }
 
-                        context.redirect('#/dashboard/all');
+                        context.redirect(`#/dashboard/${currentCategory}`);
                         notificator.showInfo('Like updated');
                     });
             })

@@ -3,11 +3,11 @@ const requester = require('../helpers/requester');
 module.exports = (() => {
 
     function getAll() {
-        return requester.get('appdata', 'pets?sort={"_kmd.ect": -1}', 'kinvey');
+        return requester.get('appdata', 'pets', 'kinvey');
     }
 
     function getAllByCategory(category) {
-        return requester.get('appdata', `pets?query={"category":"${category}"}&sort={"likes": -1}`, 'kinvey');
+        return requester.get('appdata', `pets?query={"category":"${category}"}`, 'kinvey');
     }
 
     function getOne(id) {
