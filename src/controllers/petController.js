@@ -196,16 +196,18 @@ module.exports = (() => {
 
     function editPost(context) {
         const petId = this.params.id;
-        const newDescription = this.params.description;
+        const updatedData = binder.bindFormToObj(this.params);
+        // const newDescription = this.params.description;
 
-        validator.validateFormData({description: newDescription}, 'create');
+        validator.validateFormData(updatedData, 'create');
 
         if (validator.isFormValid()) {
             notificator.showLoading();
 
             petModel.getOne(petId)
                 .then(pet => {
-                    pet.description = newDescription;
+                    pet.description = updatedData.description;
+                    pet.imageURL = updatedData.imageURL;
 
                     return petModel.editPet(pet);
                 })
@@ -218,6 +220,9 @@ module.exports = (() => {
                     notificator.hideLoading();
                     notificator.handleError(error);
                 });
+        } else {
+            notificator.hideLoading();
+            notificator.showError('Please fill in the fields correctly!');
         }
     }
 

@@ -5,6 +5,7 @@
     <p>Pet counter: <i class="fas fa-heart"></i> {{likesCounter pet.likes}}</p>
     <p class="img"><img src="{{pet.imageURL}}"></p>
     <form action="#/pet/edit/{{pet._id}}" method="POST">
+        <input type="text" name="imageURL" placeholder="Image" value="{{pet.imageURL}}" />
         <textarea type="text" name="description">{{pet.description}}</textarea>
         <button class="button"> Save</button>
     </form>
