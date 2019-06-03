@@ -203,7 +203,6 @@ module.exports = (() => {
     function editPost(context) {
         const petId = this.params.id;
         const updatedData = binder.bindFormToObj(this.params);
-        // const newDescription = this.params.description;
 
         validator.validateFormData(updatedData, 'create');
 
@@ -219,7 +218,7 @@ module.exports = (() => {
                 })
                 .then(() => {
                     notificator.hideLoading();
-                    this.redirect(`#/pet/edit/${petId}`);
+                    this.redirect('#/pet/my');
                     notificator.showInfo('Pet updated');
                 })
                 .catch(function (error) {
