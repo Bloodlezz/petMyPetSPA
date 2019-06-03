@@ -1,0 +1,50 @@
+{{> header}}
+
+<section class="dashboard">
+    <h1>Dashboard</h1>
+    <nav class="navbar">
+        <ul>
+            <li><a href="#/dashboard/all">All</a></li>
+            <li><a href="#/dashboard/cats">Cats</a></li>
+            <li><a href="#/dashboard/dogs">Dogs</a></li>
+            <li><a href="#/dashboard/parrots">Parrots</a></li>
+            <li><a href="#/dashboard/reptiles">Reptiles</a></li>
+            <li><a href="#/dashboard/others">Others</a></li>
+        </ul>
+    </nav>
+    {{#if pets}}
+        <ul class="other-pets-list">
+            {{#each pets}}
+                <li class="otherPet">
+                    <h3>Name: {{this.name}}</h3>
+                    <p>Category: {{this.category}}</p>
+                    <p class="img"><img src="{{this.imageURL}}"></p>
+                    <p class="description">{{this.description}}</p>
+                    <div class="pet-info">
+                        {{#unless (isAuthor this._acl.creator)}}
+                            <form method="POST" action="#/pet/like/{{this._id}}" class="d-inline-block">
+                                {{#if (isUserInLikes this.likes)}}
+                                    <button class="button"><i class="fas fa-heart"></i> Pet</button>
+                                {{else}}
+                                    <button class="button"><i class="far fa-heart"></i> Pet</button>
+                                {{/if}}
+                            </form>
+                        {{/unless}}
+                        <a href="#/pet/details/{{this._id}}">
+                            <button class="button">Details</button>
+                        </a>
+                        {{#if this.likes}}
+                            <i class="fas fa-heart"></i> <span> {{likesCounter this.likes}}</span>
+                        {{else}}
+                            <i class="fas fa-heart"></i> <span> 0</span>
+                        {{/if}}
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
+    {{else}}
+        <h3 class="text-center">No pets added yet or invalid category!</h3>
+    {{/if}}
+</section>
+
+{{> footer}}

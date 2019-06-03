@@ -1,0 +1,40 @@
+{{> header}}
+
+<section class="dashboard">
+    <h1>Dashboard</h1>
+    <nav class="navbar">
+        <ul>
+            <li><a href="#">All</a></li>
+            <li><a href="#">Cats</a></li>
+            <li><a href="#">Dogs</a></li>
+            <li><a href="#">Parrots</a></li>
+            <li><a href="#">Reptiles</a></li>
+            <li><a href="#">Other</a></li>
+        </ul>
+    </nav>
+    {{#if pets}}
+        <ul class="other-pets-list">
+            {{#each pets}}
+                <li class="otherPet">
+                    <h3>Name: {{this.name}}</h3>
+                    <p>Category: {{this.category}}</p>
+                    <p class="img"><img src="{{this.imageURL}}"></p>
+                    <p class="description">{{this.description}}</p>
+                    <div class="pet-info">
+                        <a href="#">
+                            <button class="button"><i class="fas fa-heart"></i> Pet</button>
+                        </a>
+                        <a href="#">
+                            <button class="button">Details</button>
+                        </a>
+                        <i class="fas fa-heart"></i> <span> 2</span>
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
+    {{else}}
+        <h3>There is no pets added yet!</h3>
+    {{/if}}
+</section>
+
+{{> footer}}

@@ -1,0 +1,30 @@
+{{> header}}
+
+<section class="my-pets">
+    <h1>My Pets</h1>
+    {{#if pets}}
+        <ul class="my-pets-list">
+            {{#each pets}}
+                <section class="myPet">
+                    <h3>Name: {{this.name}}</h3>
+                    <p>Category: {{this.category}}</p>
+                    <p class="img"><img src="{{this.imageURL}}"></p>
+                    <p class="description">{{this.description}}</p>
+                    <div class="pet-info">
+                        <a href="#/pet/edit/{{this._id}}"><button class="button">Edit</button></a>
+                        <a href="#/pet/remove/{{this/_id}}"><button class="button">Delete</button></a>
+                        {{#if this.likes}}
+                            <i class="fas fa-heart"></i> <span>{{likesCounter this.likes}}</span>
+                        {{else}}
+                            <i class="fas fa-heart"></i> 0</span>
+                        {{/if}}
+                    </div>
+                </section>
+            {{/each}}
+        </ul>
+    {{else}}
+        <h3 class="text-center">You don't have any pets added yet!</h3>
+    {{/if}}
+</section>
+
+{{> footer}}

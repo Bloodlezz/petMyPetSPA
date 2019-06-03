@@ -1,0 +1,24 @@
+{{> header}}
+
+<section class="detailsOtherPet">
+    <h3>{{pet.name}}</h3>
+
+    <form method="POST" action="#/pet/like/{{pet._id}}?from=det">
+        {{#if pet.likes}}
+        <p>Pet counter: {{likesCounter pet.likes}}
+        {{else}}
+        <p>Pet counter: 0
+        {{/if}}
+        {{#unless (isAuthor pet._acl.creator)}}
+            {{#if (isUserInLikes pet.likes)}}
+                <button type="submit" class="button d-inline-block"><i class="fas fa-heart"></i> Pet</button>
+            {{else}}
+                <button type="submit" class="button d-inline-block"><i class="far fa-heart"></i> Pet</button>
+            {{/if}}
+        {{/unless}}
+    </form>
+    <p class="img"><img src="{{pet.imageURL}}"></p>
+    <p class="description">{{pet.description}}</p>
+</section>
+
+{{> footer}}
